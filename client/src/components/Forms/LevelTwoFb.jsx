@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Layouts/Navbar';
 
 function LevelTwoFb() {
@@ -46,13 +47,18 @@ function LevelTwoFb() {
     professionalRating,
   ]);
 
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate('/tracker');
+  };
+
   return (
     <div>
       <Navbar />
     <div className="w-full max-w-screen-2xl mx-auto p-4" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
       {/* Form Heading */}
       <div className="mb-8">
-        <button className="flex items-center px-4 py-2 bg-white text-black-600 font-semibold hover:text-orange-500 hover:bg-gray-100 rounded shadow-md hover:shadow-lg transition duration-200 ease-in-out mb-4 mt-20">
+        <button onClick={handleNavigation} className="flex items-center px-4 py-2 bg-white text-black-600 font-semibold hover:text-orange-500 hover:bg-gray-100 rounded shadow-md hover:shadow-lg transition duration-200 ease-in-out mb-4 mt-20">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 mr-0.5">
             <path d="M15 19l-7-7 7-7" />
           </svg>
@@ -75,10 +81,10 @@ function LevelTwoFb() {
         </div>
 {/* Role and Position Applied */}
 <div className="flex items-center mb-4">
-          <label className="font-semibold w-1/4 text-lg mr-4">Role and Position Applied:</label>
+          <label className="font-semibold w-1/4 text-lg mr-4">Position Applied:</label>
           <select className="border border-gray-300 p-3 rounded shadow-inner w-3/4">
             <option value="" disabled selected hidden>
-              Select Role and Position
+              Select Position
             </option>
             <option value=" "></option>
             <option value=" "></option>

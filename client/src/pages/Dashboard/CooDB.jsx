@@ -61,14 +61,6 @@ const CooDB = () => {
             <h2 className="text-lg font-bold">Past Jobs</h2>
           </div>
 
-          {/* Project List */}
-          <div
-            className="bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500"
-            onClick={() => navigate('/project-list')}
-          >
-            <h2 className="text-lg font-bold">Project List</h2>
-          </div>
-
           {/* Feedback Form with Dropdown */}
           <div className="relative bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500">
             <div onClick={handleFeedbackClick}>

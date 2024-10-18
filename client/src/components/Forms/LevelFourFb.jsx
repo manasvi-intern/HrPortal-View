@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Layouts/Navbar';
 
 const LevelFourFb = () => {
@@ -9,7 +10,6 @@ const LevelFourFb = () => {
     cctc: '',
     ectc: '',
     reasonForLeaving: '',
-    documents: {},
   });
 
   const handleInputChange = (e) => {
@@ -20,29 +20,21 @@ const LevelFourFb = () => {
     });
   };
 
-  const handleFileChange = (e) => {
-    const { name } = e.target;
-    const files = e.target.files;
-    setFormData({
-      ...formData,
-      documents: {
-        ...formData.documents,
-        [name]: files,
-      },
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
     // You can handle form submission logic here
   };
 
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate('/tracker');
+  };
+
   return (
     <div>
         <Navbar />
-
-    <button className="flex items-center px-4 py-2 bg-white text-black-600 font-semibold hover:text-orange-500 hover:bg-gray-100 rounded shadow-md hover:shadow-lg transition duration-200 ease-in-out mb-4 mt-20 ml-2">
+    <button onClick={handleNavigation} className="flex items-center px-4 py-2 bg-white text-black-600 font-semibold hover:text-orange-500 hover:bg-gray-100 rounded shadow-md hover:shadow-lg transition duration-200 ease-in-out mb-4 mt-20 ml-2">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 mr-0.5">
       <path d="M15 19l-7-7 7-7" />
       </svg>
@@ -148,50 +140,6 @@ const LevelFourFb = () => {
             onChange={handleInputChange}
             required
           />
-        </div>
-
-        {/* Upload Documents */}
-        <div className="mb-6">
-          <label className="font-semibold w-1/4 text-lg mr-4 mb-4">Upload Documents</label>
-          {[
-            '1. Photograph',
-            '2. Resume',
-            '3. Interview evaluation sheet',
-            '4. HR evaluation sheet',
-            '5. 10th Marksheet',
-            '6. 12th Marksheet',
-            '7. Degree marksheet',
-            '8. Degree certificate/provisional degree certificate',
-            '9. PG marksheet',
-            '10. PG certificate',
-            '11. Any other degree/certificate',
-            '12. Appointment letter for previous company',
-            '13. Last salary slip',
-            '14. Relieving letter from all previous employers',
-            '15. Experience letter',
-            '16. PAN card copy',
-            '17. ID proof and DOB proof (DL/PAN card/Voter ID card)',
-            '18. Offer Letter salary Acceptance',
-            '19. Inknowtech-Email ID creation form',
-            '20. Inknowtech- Onsite engineer Dos and Donts',
-            '21. Inknowtech- undertaking on joining',
-            '22. Medical Form',
-            '23. Inknowtech- EPF- Declaration form',
-            '24. Inknowtech- ESI Declaration form (NA for trainee, salary> 15k',
-            '25. Appointment letter Acceptance',
-            '26. Social Media Policy',
-          ].map((label, index) => (
-            <div key={index} className="mb-4">
-              <label className="font-semibold w-1/4 text-lg mr-4">{label}</label>
-              <input
-                type="file"
-                name={label.toLowerCase().replace(/\s+/g, '_')}
-                className="w-full p-2 border rounded-md"
-                onChange={handleFileChange}
-                multiple
-              />
-            </div>
-          ))}
         </div>
 
         {/* Submit Button */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RequestForm = ({ formData, setFormData }) => {
   
@@ -10,14 +11,19 @@ const RequestForm = ({ formData, setFormData }) => {
     }));
   };
 
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate('/tracker');
+  };
+
   return (
   <div>
     {/* Button to redirect */}
-    <button className="flex items-center px-4 py-2 bg-white text-black-600 font-semibold hover:text-orange-500 hover:bg-gray-100 rounded shadow-md hover:shadow-lg transition duration-200 ease-in-out mb-4 mt-20 ml-2">
+    <button onClick={handleNavigation} className="flex items-center px-4 py-2 bg-white text-black-600 font-semibold hover:text-orange-500 hover:bg-gray-100 rounded shadow-md hover:shadow-lg transition duration-200 ease-in-out mb-4 mt-20 ml-2" >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 mr-0.5">
       <path d="M15 19l-7-7 7-7" />
       </svg>
-      Access Hiring Process Overview
+        Access Hiring Process Overview
     </button>
     
     <div className="p-6 mb-10 bg-gray-100 min-h-screen font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import logo from '../../assets/images/ikt_logo.png';
+import logo from '/inknowtech-logo.png';
 
 const Footer = () => {
   return (

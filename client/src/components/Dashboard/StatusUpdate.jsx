@@ -63,13 +63,13 @@ const StatusUpdate = () => {
   
   // Display either exact matches or filtered results
   const displayCandidates = exactMatchCandidate.length > 0 ? exactMatchCandidate : filteredCandidates;
-  
+
 
   return (
     <div>
       <Navbar />
     <div className="container mx-auto p-20 mb-40 font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
-      <h1 className="text-3xl font-semibold mb-8 text-[#055484]">Candidate Status Update</h1>
+      <h1 className="text-3xl text-start font-semibold mb-8 text-[#055484]">Candidate Status Update</h1>
 
       {/* Search bar */}
       <div className="flex items-center justify-end mb-4">

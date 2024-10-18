@@ -68,12 +68,6 @@ const RecruitmentProcess = () => {
           </div>
         </div>
       ))}
-
-      {/* Accept and Reject Buttons */}
-      <div className="flex gap-4 mt-8">
-        <button className="bg-green-600 text-white px-4 py-2 rounded">Accept</button>
-        <button className="bg-red-600 text-white px-4 py-2 rounded">Reject</button>
-      </div>
     </div>
   );
 };

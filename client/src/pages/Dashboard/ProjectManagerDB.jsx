@@ -63,36 +63,20 @@ const ProjectManagerDB = () => {
             <h2 className="text-lg font-bold">Past Jobs</h2>
           </div>
 
-          {/* Project List */}
+          {/* Feedback Level 2 */}
           <div
             className="bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500"
-            onClick={() => navigate('/project-list')}
+            onClick={() => navigate('/feedback/level-two')}
           >
-            <h2 className="text-lg font-bold">Project List</h2>
+            <h2 className="text-lg font-bold">Feedback Level 2</h2>
           </div>
 
-          {/* Feedback Form with Dropdown */}
-          <div className="relative bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500">
-            <div onClick={handleFeedbackClick}>
-              <h2 className="text-lg font-bold">Feedback (Level 2 & Level 3)</h2>
-            </div>
-
-            {showFeedbackDropdown && (
-              <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg w-full">
-                <div
-                  className="p-4 hover:bg-orange-500 hover:text-white cursor-pointer"
-                  onClick={() => navigate('/feedback/level-two')}
-                >
-                  Level 2 Feedback
-                </div>
-                <div
-                  className="p-4 hover:bg-orange-500 hover:text-white cursor-pointer"
-                  onClick={() => navigate('/feedback/level-three')}
-                >
-                  Level 3 Feedback
-                </div>
-              </div>
-            )}
+          {/* Feedback Level 2 */}
+          <div
+            className="bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500"
+            onClick={() => navigate('/feedback/level-three')}
+          >
+            <h2 className="text-lg font-bold">Feedback Level 3</h2>
           </div>
         </div>
       </div>
