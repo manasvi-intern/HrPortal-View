@@ -39,10 +39,9 @@ import LevelOneFb from './components/Forms/LevelOneFb';
 import LevelTwoFb from './components/Forms/LevelTwoFb';
 import LevelThreeFb from './components/Forms/LevelThreeFb'; 
 import LevelFourFb from './components/Forms/LevelFourFb';
-import LevelOneView from './pages/FeedbackForms/LevelOneView';
-import LevelTwoView from './pages/FeedbackForms/LevelTwoView';
 import RecruitmentProcess from './pages/RecruitmentProcess';
-import Documentation from './components/Dashboard/Documentation';
+import Documentation from './components/Forms/Documentation';
+import CandidateList from './pages/Jobs/CandidateList';
 
 const App = () => {
   return (
@@ -64,10 +63,9 @@ const App = () => {
         <Route path="/feedback/level-two" element={<LevelTwoFb />} />
         <Route path="/feedback/level-three" element={<LevelThreeFb />} />
         <Route path="/feedback/level-four" element={<LevelFourFb />} />
-        <Route path="/form-view/level-one" element={<LevelOneView />} />
-        <Route path="/form-view/level-two" element={<LevelTwoView />} />
         <Route path="/documentation" element={<Documentation />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/candidate-list" element={<CandidateList />} />
       </Routes>
       <Footer />
     </Router>

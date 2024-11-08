@@ -39,17 +39,57 @@ const Documentation = () => {
     <div>
       <Navbar />
       {/* Navigation Button */}
-      <button onClick={handleNavigation} className="flex items-center px-4 py-2 bg-white text-black-600 font-semibold hover:text-orange-500 hover:bg-gray-100 rounded shadow-md hover:shadow-lg transition duration-200 ease-in-out mb-4 mt-20 ml-2">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 mr-0.5">
-          <path d="M15 19l-7-7 7-7" />
-        </svg>
-        Access Hiring Process Overview
-      </button>
+      
 
       {/* Form Section */}
       <div className="p-6 mb-10 ml-4 bg-gray-100 min-h-screen font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
         <h1 className="text-3xl text-start font-semibold mb-8 text-[#055484]">Documentation</h1>
         <form className="space-y-8" onSubmit={handleSubmit}>
+
+        <div className="flex items-center mb-4">
+            <label className="font-semibold w-1/4 text-lg mr-4">Name of the Candidate:</label>
+            <input
+              type="text"
+              placeholder="Enter candidate's name"
+              className="border border-gray-300 p-3 rounded shadow-inner w-3/4"
+            />
+          </div>
+
+          <div className="flex items-center mb-4">
+            <label className="font-semibold w-1/4 text-lg mr-4">Position Applied:</label>
+            <select className="border border-gray-300 p-3 rounded shadow-inner w-3/4">
+              <option value="" disabled hidden>Select Position</option>
+              <option value=" "></option>
+              <option value=" "></option>
+            </select>
+          </div>
+
+          <div className="flex items-center mb-4">
+            <label className="font-semibold w-1/4 text-lg mr-4">Name of the Interviewer:</label>
+            <select className="border border-gray-300 p-3 rounded shadow-inner w-3/4">
+              <option value="" disabled hidden>Select Name of the Interviewer</option>
+              <option value=" "></option>
+              <option value=" "></option>
+            </select>
+          </div>
+
+          <div className="flex items-center mb-4">
+            <label className="font-semibold w-1/4 text-lg mr-4">Date & Time of Interview:</label>
+            <input
+              type="datetime-local"
+              className="border border-gray-300 p-3 rounded shadow-inner w-3/4"
+            />
+          </div>
+
+          <div className="flex items-center mb-4">
+            <label className="font-semibold w-1/4 text-lg mr-4">Source of the Candidate:</label>
+            <input
+              type="text"
+              placeholder="Enter Source"
+              className="border border-gray-300 p-3 rounded shadow-inner w-3/4"
+            />
+          </div>
+
           {/* Upload Documents */}
           <div className="mb-6 text-start">
             {[

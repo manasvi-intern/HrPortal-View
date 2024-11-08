@@ -60,45 +60,13 @@ const CooDB = () => {
           >
             <h2 className="text-lg font-bold">Past Jobs</h2>
           </div>
-
-          {/* Feedback Form with Dropdown */}
-          <div className="relative bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500">
-            <div onClick={handleFeedbackClick}>
-              <h2 className="text-lg font-bold">View Feedback (All Levels)</h2>
-            </div>
-
-            {showFeedbackDropdown && (
-              <div
-                ref={dropdownRef}
-                className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg w-full"
-              >
-                <div
-                  className="p-4 hover:bg-orange-500 hover:text-white cursor-pointer"
-                  onClick={() => navigate('/form-view/level-one')}
-                >
-                  Level 1 Feedback
-                </div>
-                <div
-                  className="p-4 hover:bg-orange-500 hover:text-white cursor-pointer"
-                  onClick={() => navigate('/form-view/level-two')}
-                >
-                  Level 2 Feedback
-                </div>
-                <div
-                  className="p-4 hover:bg-orange-500 hover:text-white cursor-pointer"
-                  onClick={() => navigate('/form-view/level-three')}
-                >
-                  Level 3 Feedback
-                </div>
-                <div
-                  className="p-4 hover:bg-orange-500 hover:text-white cursor-pointer"
-                  onClick={() => navigate('/form-view/level-four')}
-                >
-                  Level 4 Feedback
-                </div>
-              </div>
-            )}
+          <div
+            className="bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500"
+            onClick={() => navigate('/candidate-list')}
+          >
+            <h2 className="text-lg font-bold">Tracker</h2>
           </div>
+
         </div>
       </div>
 
