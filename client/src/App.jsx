@@ -32,15 +32,15 @@ import CooDB from './pages/Dashboard/CooDB';
 import OfferLetterRelease from './components/Dashboard/OfferLetterRelease';
 import StatusUpdate from './components/Dashboard/StatusUpdate';
 import CooApproval  from './components/Dashboard/CooApproval';
-import RequestForm from './pages/RequestForm'; 
+import RequestForm from './pages/Forms/RequestForm'; 
 import CurrentJobs from './pages/Jobs/CurrentJobs'; 
 import PastJobs from './pages/Jobs/PastJobs'; 
-import LevelOneFb from './components/Forms/LevelOneFb'; 
-import LevelTwoFb from './components/Forms/LevelTwoFb';
-import LevelThreeFb from './components/Forms/LevelThreeFb'; 
-import LevelFourFb from './components/Forms/LevelFourFb';
+import LevelOneFb from './pages/Forms/LevelOneFb';
+import LevelTwoFb from './pages/Forms/LevelTwoFb';
+import LevelThreeFb from './pages/Forms/LevelThreeFb';
+import LevelFourFb from './pages/Forms/LevelFourFb';
 import RecruitmentProcess from './pages/RecruitmentProcess';
-import Documentation from './components/Forms/Documentation';
+import Documentation from './pages/Forms/Documentation';
 import CandidateList from './pages/Jobs/CandidateList';
 
 const App = () => {

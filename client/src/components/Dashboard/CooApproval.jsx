@@ -1,131 +1,98 @@
-import React, { useState, useEffect } from 'react';
-// import Navbar from '../Layouts/Navbar';
-// import axios from 'axios'; 
+import React, { useState } from 'react';
+import Navbar from '../../components/Layouts/Navbar';
+import { FaSearch } from 'react-icons/fa';
 
-const ApprovalPage = () => {
-    const [acceptedCandidates, setAcceptedCandidates] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-//   const [candidates, setCandidates] = useState([]);
-  
-  useEffect(() => {
-    // Fetch only candidates who have accepted the offer letter
-//     const fetchCandidates = async () => {
-//       try {
-//         const response = await axios.get('/api/candidates?status=accepted'); 
-//         setCandidates(response.data);
-//       } catch (error) {
-//         console.error('Error fetching candidates:', error);
-//       }
-//     };
-//     fetchCandidates();
-//   }, []);
+const COOApproval = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
 
-    const fetchAcceptedCandidates = async () => {
-    const candidates = [
-      { id: 1, name: 'Person 1', email: 'person1@example.com', position: 'Position 1' },
-      { id: 2, name: 'Person 2', email: 'person2@example.com', position: 'Position 2' },
-      { id: 3, name: 'Person 3', email: 'person3@example.com', position: 'Position 3' },
-    ];
+  const [candidates, setCandidates] = useState([
+    { candidateId: 1, candidateName: 'Person 1', position: 'Position 1', approvalStatus: 'Pending' },
+    { candidateId: 2, candidateName: 'Person 2', position: 'Position 2', approvalStatus: 'Pending' },
+    { candidateId: 3, candidateName: 'Person 3', position: 'Position 3', approvalStatus: 'Pending' },
+  ]);
 
-    setAcceptedCandidates(candidates);
+  const filteredCandidates = candidates.filter((candidate) =>
+    candidate.candidateName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleSearchClick = () => {
+    setShowSearch(true);
   };
 
-  fetchAcceptedCandidates();
-}, []);
-
-const filteredCandidates = acceptedCandidates.filter(candidate => {
-  if (searchTerm === '') {
-    // When search term is empty, return all candidates
-    return true;
-  }
-  // Otherwise, return candidates with names matching the search term
-  return candidate.name.toLowerCase().includes(searchTerm.toLowerCase());
-});
-
-// Filter to get the exact match when the search term matches a candidate's full name
-const exactMatchCandidate = acceptedCandidates.filter(candidate =>
-  candidate.name.toLowerCase() === searchTerm.toLowerCase()
-);
-
-// Display either exact matches or filtered results
-const displayCandidates = exactMatchCandidate.length > 0 ? exactMatchCandidate : filteredCandidates;
+  const handleApprovalAction = (candidateId, newStatus) => {
+    setCandidates((prevCandidates) =>
+      prevCandidates.map((candidate) =>
+        candidate.candidateId === candidateId ? { ...candidate, approvalStatus: newStatus } : candidate
+      )
+    );
+  };
 
   return (
     <div>
-        {/* <Navbar /> */}
-    <div className="container mx-auto p-20 mb-40 font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
-      <h1 className="text-3xl font-semibold mb-8 text-[#055484]">COO Approval</h1>
+      <Navbar />
+      <div className="coo-approval container mx-auto p-20 mb-40 font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-semibold text-[#055484]">COO Approval</h1>
+          <div className="relative">
+            {showSearch ? (
+              <input
+                type="text"
+                placeholder="Search by name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onBlur={() => setShowSearch(false)}
+                className="p-2 border rounded-md shadow-lg focus:outline-none"
+                style={{ width: '200px' }}
+                autoFocus
+              />
+            ) : (
+              <button
+                onClick={handleSearchClick}
+                className="bg-[#055484] text-white p-2 rounded-full hover:bg-[#034162] focus:outline-none"
+              >
+                <FaSearch />
+              </button>
+            )}
+          </div>
+        </div>
 
-      {/* Search bar */}
-      <div className="flex items-center justify-end mb-4">
-        <input
-          type="text"
-          placeholder="Search by candidate"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="border rounded-lg px-4 py-2 mr-2"
-        />
-        <span className="material-icons text-gray-500">search</span>
-      </div>
-
-      {/* Table */}
-      <table className="min-w-full bg-white border rounded-lg shadow-md">
-        <thead>
-          <tr>
-            <th className="px-4 py-2 border">Candidate Name</th>
-            <th className="px-4 py-2 border">Position</th>
-            <th className="px-4 py-2 border">Date Accepted</th>
-            <th className="px-4 py-2 border">Approval Status</th>
-            <th className="px-4 py-2 border">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-        {displayCandidates.length > 0 ? (
-            displayCandidates.map(candidate => (
-              <tr key={candidate.id} className="text-center">
-                <td className="px-4 py-2 border">{candidate.name}</td>
-                <td className="px-4 py-2 border">{candidate.position}</td>
-                <td className="px-4 py-2 border">{candidate.dateAccepted}</td>
-                <td className="px-4 py-2 border">
-                  {candidate.approvalStatus ? 'Approved' : 'Pending'}
-                </td>
-                <td className="px-4 py-2 border">
+        <table className="min-w-full table-auto bg-white border rounded-lg shadow-md">
+          <thead>
+            <tr>
+              <th className="border px-16 py-2">Candidate Name</th>
+              <th className="border px-16 py-2">Position</th>
+              <th className="border px-16 py-2">Approval Status</th>
+              <th className="border px-4 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredCandidates.map((candidate) => (
+              <tr key={candidate.candidateId}>
+                <td className="border px-4 py-2">{candidate.candidateName}</td>
+                <td className="border px-4 py-2">{candidate.position}</td>
+                <td className="border px-4 py-2">{candidate.approvalStatus}</td>
+                <td className="border px-4 py-2 flex space-x-2">
                   <button
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded"
-                    onClick={() => handleApprove(candidate.id)}
-                    disabled={candidate.approvalStatus === 'Approved'}
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                    onClick={() => handleApprovalAction(candidate.candidateId, 'Approved')}
                   >
                     Approve
                   </button>
+                  <button
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    onClick={() => handleApprovalAction(candidate.candidateId, 'Rejected')}
+                  >
+                    Reject
+                  </button>
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="px-4 py-2 border text-center">
-                No candidates found.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-
-  // Function to approve candidate
-  const handleApprove = async (id) => {
-    try {
-      await axios.post(`/api/candidates/approve/${id}`); // Adjust the API for approval
-      setCandidates((prevCandidates) =>
-        prevCandidates.map((candidate) =>
-          candidate.id === id ? { ...candidate, approvalStatus: 'Approved' } : candidate
-        )
-      );
-    } catch (error) {
-      console.error('Error approving candidate:', error);
-    }
-  };
 };
 
-export default ApprovalPage;
+export default COOApproval;

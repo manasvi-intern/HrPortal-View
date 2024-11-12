@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Navbar from '../Layouts/Navbar';
-import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Layouts/Navbar.jsx';
+import CandidateForm from '../../components/Forms/CIF1.jsx';
+// import { useNavigate } from 'react-router-dom';
 
 const Documentation = () => {
   // Uncomment this if you want to use navigation
@@ -30,11 +31,6 @@ const Documentation = () => {
     // You can add logic to send form data to a server here
   };
 
-  const navigate = useNavigate();
-  const handleNavigation = () => {
-    navigate('/tracker');
-  };
-
   return (
     <div>
       <Navbar />
@@ -42,53 +38,11 @@ const Documentation = () => {
       
 
       {/* Form Section */}
-      <div className="p-6 mb-10 ml-4 bg-gray-100 min-h-screen font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
-        <h1 className="text-3xl text-start font-semibold mb-8 text-[#055484]">Documentation</h1>
+      <div className="container mx-auto mt-10 p-6 mb-10 bg-gray-100 min-h-screen font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
+        <h1 className="text-3xl text-center font-semibold mb-8 text-[#055484]">Documentation</h1>
         <form className="space-y-8" onSubmit={handleSubmit}>
 
-        <div className="flex items-center mb-4">
-            <label className="font-semibold w-1/4 text-lg mr-4">Name of the Candidate:</label>
-            <input
-              type="text"
-              placeholder="Enter candidate's name"
-              className="border border-gray-300 p-3 rounded shadow-inner w-3/4"
-            />
-          </div>
-
-          <div className="flex items-center mb-4">
-            <label className="font-semibold w-1/4 text-lg mr-4">Position Applied:</label>
-            <select className="border border-gray-300 p-3 rounded shadow-inner w-3/4">
-              <option value="" disabled hidden>Select Position</option>
-              <option value=" "></option>
-              <option value=" "></option>
-            </select>
-          </div>
-
-          <div className="flex items-center mb-4">
-            <label className="font-semibold w-1/4 text-lg mr-4">Name of the Interviewer:</label>
-            <select className="border border-gray-300 p-3 rounded shadow-inner w-3/4">
-              <option value="" disabled hidden>Select Name of the Interviewer</option>
-              <option value=" "></option>
-              <option value=" "></option>
-            </select>
-          </div>
-
-          <div className="flex items-center mb-4">
-            <label className="font-semibold w-1/4 text-lg mr-4">Date & Time of Interview:</label>
-            <input
-              type="datetime-local"
-              className="border border-gray-300 p-3 rounded shadow-inner w-3/4"
-            />
-          </div>
-
-          <div className="flex items-center mb-4">
-            <label className="font-semibold w-1/4 text-lg mr-4">Source of the Candidate:</label>
-            <input
-              type="text"
-              placeholder="Enter Source"
-              className="border border-gray-300 p-3 rounded shadow-inner w-3/4"
-            />
-          </div>
+        <CandidateForm />
 
           {/* Upload Documents */}
           <div className="mb-6 text-start">
