@@ -1,24 +1,3 @@
-// import { useState } from 'react';
-// import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// import Home from './pages/Home';
-
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     // <Home />
-//     <Router>
-//       <Routes>
-//       <Route path="/" element={<Home />} />
-//       </Routes>
-//       </Router>  
-//   );
-// }
-
-// export default App
-
 // ./App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -42,6 +21,7 @@ import LevelFourFb from './pages/Forms/LevelFourFb';
 import RecruitmentProcess from './pages/RecruitmentProcess';
 import Documentation from './pages/Forms/Documentation';
 import CandidateList from './pages/Jobs/CandidateList';
+import ListOfCandidate from './pages/ListOfCandidates';
 
 const App = () => {
   return (
@@ -66,6 +46,7 @@ const App = () => {
         <Route path="/documentation" element={<Documentation />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/candidate-list" element={<CandidateList />} />
+        <Route path="/list-of-candidate" element={<ListOfCandidate />} />
       </Routes>
       <Footer />
     </Router>

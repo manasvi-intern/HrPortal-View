@@ -42,7 +42,7 @@ const HRDB = () => {
           {/* Job Requirements */}
           <div
             className="bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500"
-            onClick={() => navigate('/feedback/level-four')}
+            onClick={() => navigate('/list-of-candidate')}
           >
             <h2 className="text-lg font-bold">Level 4 feedback</h2>
           </div>
