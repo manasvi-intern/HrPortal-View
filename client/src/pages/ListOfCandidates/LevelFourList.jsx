@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Layouts/Navbar';
+import Navbar from '../../components/Layouts/Navbar';
 import axios from 'axios' ;
 
-const ListOfCandidate = () => {
+const LevelFourList = () => {
     const [candidates, setCandidates] = useState([]);
     const navigate = useNavigate();
 
@@ -69,4 +69,4 @@ const ListOfCandidate = () => {
     );
 };
 
-export default ListOfCandidate;
+export default LevelFourList;

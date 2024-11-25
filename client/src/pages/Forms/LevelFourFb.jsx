@@ -4,7 +4,7 @@ import axios from 'axios'; // Install axios if not installed: npm install axios
 import Navbar from '../../components/Layouts/Navbar';
 import Textarea from '../../components/Forms/Textarea';
 import Dropdown from '../../components/Forms/Dropdown';
-import DateTimeInput from '../../components/Forms/DateTimeInput';
+import DateInput from '../../components/Forms/DateInput';
 
 const LevelFourFb = () => {
   const { candidateId } = useParams();
@@ -110,7 +110,7 @@ const LevelFourFb = () => {
       {/* interviewer */}
       <Dropdown label="Interviewer" name="interviewer" options={dropdownOptions.interviewers?.map((int, index) => ({ value: int.value, label: int.label, key: index }))} value={formData.interviewer}  onChange={(e) => setFormData({ ...formData, interviewer: e.target.value })} />
        {/* Date & Time of Interview */}
-          <DateTimeInput label="Date & Time of Interview" name="interviewDateTime" value={formData.interviewDateTime} onChange={handleInputChange} />
+          <DateInput label="Date & Time of Interview" name="interviewDateTime" value={formData.interviewDateTime} onChange={handleInputChange} />
           {/* Communication */}
           <Textarea label="Communication" placeholder="Describe communication skills" rows={4} name="communication" value={formData.communication} onChange={handleInputChange} />
            {/* Attitude */}

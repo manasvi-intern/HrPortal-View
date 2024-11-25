@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../../components/Layouts/Navbar';
+import Navbar from '../components/Layouts/Navbar';
 import { FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 

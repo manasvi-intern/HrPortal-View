@@ -8,25 +8,37 @@ import DateInput from '../../components/Forms/DateInput';
 
 const RequestForm = () => {
   const [formData, setFormData] = useState({
-        raisedBy: '', location: '', dateOfRequest: '', clientProject: '', projectDetails: '', position: '', 
-        positionLevel: '', numOfPositions: '', replacement: '', replacementDetails: '', vacancyReason: '',
-        experienceRange: '', salaryBudget: '', qualification: '', certification: '', skillset: '', 
-        otherBenefit: '', targetDate: '', });
+        raisedBy: '', location: '', dateOfRequest: '', clientProject: '', projectDetails: '', position: '', positionLevel: '', numOfPositions: '', replacement: '',
+        replacementDetails: '', vacancyReason: '', experienceRange: '', salaryBudget: '', qualification: '', certification: '', skillset: '', otherBenefit: '', targetDate: '', });
 
-    const [dropdownOptions, setDropdownOptions] = useState({
-    raisedBy: [], clientProject: [], position: [], positionLevel: [],
-    replacement: [], experienceRange: [], salaryBudget: [], qualification: [], certification: [], });
+  const [dropdownOptions, setDropdownOptions] = useState({
+    raisedBy: [], clientProject: [], position: [], positionLevel: [], replacement: [], experienceRange: [], qualification: [], certification: [], });
 
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
-
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
+  const [showPopup, setShowPopup] = useState(false); // Popup state for success message
   const navigate = useNavigate();
+
+  // Set the current date and time to the "Date of Request" field on component mount
+  useEffect(() => {
+    const currentDate = new Date();
+    const options = {
+      timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false, 
+    };
+
+    const formatter = new Intl.DateTimeFormat("en-GB", options);
+    const formattedDateParts = formatter.formatToParts(currentDate);
+    const date = `${formattedDateParts[4].value}-${formattedDateParts[2].value}-${formattedDateParts[0].value}`; // YYYY-MM-DD
+    const time = `${formattedDateParts[6].value}:${formattedDateParts[8].value}`; // HH:mm
+    const formattedDateTime = `${date}T${time}`;
+
+    setFormData({ ...formData, dateOfRequest: formattedDateTime });
+  }, []);
 
   // Fetch dropdown options when the component mounts
   useEffect(() => {
-    axios.get('http://localhost:5000/api/request/dropdown-options') // Adjust URL if necessary
+    axios.get('http://localhost:5000/api/request/dropdown-options')
       .then((response) => {
-        console.log('dropdown options:',response.data);
         setDropdownOptions({
           raisedBy: response.data.raisedBy.map(rby => ({ value: rby.raised_by_name, label: rby.raised_by_name })),
           clientProject: response.data.clientProject.map(pro => ({ value: pro.project_name, label: pro.project_name })),
@@ -34,11 +46,10 @@ const RequestForm = () => {
           positionLevel: response.data.positionLevel.map(lev => ({ value: lev.level_name, label: lev.level_name })),
           replacement: response.data.replacement.map(repl => ({ value: repl.replacement_type, label: repl.replacement_type })),
           experienceRange: response.data.experienceRange.map(er => ({ value: er.exp_range, label: er.exp_range })),
-          salaryBudget: response.data.salaryBudget.map(sb => ({ value: sb.ctc_range_value, label: sb.ctc_range_value })),
           qualification: response.data.qualification.map(qua => ({ value: qua.qualification_name, label: qua.qualification_name })),
           certification: response.data.certification.map(cert => ({ value: cert.certification_name, label: cert.certification_name })),
         });
-       
+
         setLoading(false);
       })
       .catch((error) => {
@@ -61,13 +72,16 @@ const RequestForm = () => {
     console.log('Form Data being sent:', formData);
 
     axios.post('http://localhost:5000/api/request', formData)
-      .then((response) => {console.log('Request Raised successfully:', response.data);
-        alert('Request Raised successfully!');
-        navigate('/pm-db');
+      .then((response) => {
+        console.log('Request Raised successfully:', response.data);
+        setShowPopup(true); // Show success popup
+        setTimeout(() => {
+          navigate('/pm-db');
+        }, 4000); // Wait for 4 seconds
       })
       .catch((error) => {
         console.error('Error in raising the request:', error);
-  });
+      });
   };
 
   // Display loading or error states
@@ -82,7 +96,6 @@ const RequestForm = () => {
       </div>
     );
   }
-
 
   if (error) {
     return (
@@ -110,7 +123,10 @@ const RequestForm = () => {
 
           <Textarea label="Location" placeholder="Enter Location" rows={1} name="location" value={formData.location} onChange={handleInputChange} />
 
-          <DateInput label="Date of Request" name="dateOfRequest" value={formData.dateOfRequest} onChange={handleInputChange} />
+          <div className="flex items-center mb-4">
+          <label htmlFor="dateOfRequest" className=" font-semibold w-1/4 text-lg mr-4" > Date of Request </label>
+          <input type="datetime-local" id="dateOfRequest" name="dateOfRequest" value={formData.dateOfRequest} readOnly className="w-3/4 p-3 bg-gray-100" />
+          </div>
 
           <Dropdown label="Client/Project" name="clientProject" options={dropdownOptions.clientProject.map((pro, index) => ({
           value: pro.value, label: pro.label, key: index, }))}
@@ -142,9 +158,7 @@ const RequestForm = () => {
           value: er.value, label: er.label, key: index, }))}
           value={formData.experienceRange} onChange={(e) => setFormData({ ...formData, experienceRange: e.target.value })} placeholder="Select Experience Range" />
 
-          <Dropdown label="CTC/ Salary Budget or Range" name="salaryBudget" options={dropdownOptions.salaryBudget.map((sb, index) => ({
-          value: sb.value, label: sb.label, key: index, }))}
-          value={formData.salaryBudget} onChange={(e) => setFormData({ ...formData, salaryBudget: e.target.value })} placeholder="Select CTC/ Salary Budget or Range" />
+          <Textarea label="CTC/ Salary Budget or Range" placeholder="Enter CCTC" rows={1} name="salaryBudget" value={formData.salaryBudget} onChange={handleInputChange} />
 
           <Dropdown label="Qualification" name="qualification" options={dropdownOptions.qualification.map((qua, index) => ({
           value: qua.value, label: qua.label, key: index, }))}
@@ -167,6 +181,15 @@ const RequestForm = () => {
             </button>
           </div>
         </form>
+      {/* Success Popup */}
+      {showPopup && (
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-10">
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+              <h3 className="text-lg font-semibold text-green-600">Request Raised Successfully!</h3>
+              <p className="text-gray-500 mt-2">You will be redirected shortly.</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

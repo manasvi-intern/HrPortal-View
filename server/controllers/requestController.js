@@ -9,7 +9,7 @@ exports.getOptions = async (req, res) => {
         const positionLevelResult = await pool.query('SELECT LEVEL_NAME FROM LEVEL');
         const replacementResult = await pool.query('SELECT REPLACEMENT_TYPE FROM REPLACEMENT_TYPE');
         const experienceRangeResult = await pool.query('SELECT EXP_RANGE FROM EXPERIENCE_RANGE');
-        const salaryBudgetResult = await pool.query('SELECT CTC_RANGE_VALUE FROM CTC_RANGE');
+        // const salaryBudgetResult = await pool.query('SELECT CTC_RANGE_VALUE FROM CTC_RANGE');
         const qualificationResult = await pool.query('SELECT QUALIFICATION_NAME FROM QUALIFICATION');
         const certificationResult = await pool.query('SELECT CERTIFICATION_NAME FROM CERTIFICATION');
 
@@ -20,7 +20,7 @@ exports.getOptions = async (req, res) => {
           positionLevel: positionLevelResult.rows,
           replacement: replacementResult.rows,
           experienceRange: experienceRangeResult.rows,
-          salaryBudget: salaryBudgetResult.rows,
+        //   salaryBudget: salaryBudgetResult.rows,
           qualification: qualificationResult.rows,
           certification: certificationResult.rows,
         });

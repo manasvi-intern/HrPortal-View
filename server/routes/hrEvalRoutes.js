@@ -14,4 +14,10 @@ router.post('/', (req,res) => {
     hrEvalController.submitHrEval(req,res);
 });
 
+// Route to fetch HR Evaluation by candidate ID
+router.get('/:candidateId', (req, res) => {
+    console.log(`GET /hr-eval/${req.params.candidateId} request received`);
+    hrEvalController.getHrEvalByCandidateId(req, res);
+});
+
 module.exports = router;

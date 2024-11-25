@@ -39,6 +39,14 @@ const RecruiterDB = () => {
       <div className="flex-1 bg-gray-100 shadow-md p-8 font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
         <h1 className="text-2xl font-bold">Welcome, [Person Name]!</h1>
         <div className="grid grid-cols-3 gap-10 mt-20">
+          {/* Upload resume */}
+          <div
+            className="bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500"
+            onClick={() => navigate('/request-list')}
+          >
+            <h2 className="text-lg font-bold">View Request</h2>
+          </div>
+
           {/* Job Requirements */}
           <div
             className="bg-white text-[#025686] p-6 shadow-lg rounded-lg cursor-pointer hover:bg-gray-200 hover:text-orange-500"
