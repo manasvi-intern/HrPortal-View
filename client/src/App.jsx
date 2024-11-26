@@ -25,6 +25,9 @@ import LevelFourList from './pages/ListOfCandidates/LevelFourList';
 import RequestList from './pages/ListOfCandidates/RequestList';
 import UploadResume from './pages/UploadResume';
 import ViewRequestForm from './pages/ViewForm/ViewRequestForm';
+import LevelFourView from   './pages/ViewForm/LevelFourView';
+import ApprovedCandidates from './pages/ListOfCandidates/ApprovedCandidates';
+import RejectedCandidates from './pages/ListOfCandidates/RejectedCandidates';
 
 const App = () => {
   return (
@@ -53,6 +56,9 @@ const App = () => {
         <Route path="/request-list" element={<RequestList />} />
         <Route path="/upload/:id" element={<UploadResume />} />
         <Route path="/request-list/:requestId" element={<ViewRequestForm />} />
+        <Route path="/View-feedback/level-four/:candidateId" element={<LevelFourView />} />
+        <Route path="/approved-candidates" element={<ApprovedCandidates />} />
+        <Route path="/rejected-candidates" element={<RejectedCandidates />} />
       </Routes>
       <Footer />
     </Router>

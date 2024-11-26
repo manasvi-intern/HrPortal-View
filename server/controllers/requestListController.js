@@ -1,28 +1,18 @@
-const pool = require("../db/pool"); // Import the database pool
+const pool = require('../db/pool'); // Assuming you have a db.js file for database connection
 
-// Controller function to get the list of requests
-const getRequestList = async (req, res) => {
-  try {
-    // Query to retrieve only the required columns from the database
-    const query = `
-      SELECT 
-        RAISED_BY_NAME AS "raisedBy", 
-        DESIGNATION_NAME AS "designation", 
-        PROJECT_NAME AS "projectName"
-      FROM request
-    `;
-    const result = await pool.query(query);
-
-    // Send the retrieved rows as the response
-    res.status(200).json(result.rows);
-  } catch (error) {
-    console.error("Error fetching request list:", error.message);
-
-    // Send a 500 Internal Server Error response in case of an issue
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
-
-module.exports = {
-  getRequestList,
+// Get all candidates
+exports.getAllRequests = async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT 
+                REQUEST_ID AS "request_id", 
+                RAISED_BY_NAME AS "raisedBy", 
+                DESIGNATION_NAME AS "designation", 
+                PROJECT_NAME AS "projectName"
+            FROM REQUEST`);
+        console.log(result.rows);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error fetching requests:', error);
+        res.status(500).json({ error: 'Failed to fetch request' });
+    }
 };

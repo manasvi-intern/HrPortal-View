@@ -10,25 +10,26 @@ const COOApproval = () => {
   const [candidates, setCandidates] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false); // State for dropdown
   const navigate = useNavigate();
- 
+
   // Fetch data from API
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/coo-approval/candidates');
-        console.log('Updated candidates:', response.data); // Debug log to verify the data
-        setCandidates(response.data); // This updates the state with the new list
+        setCandidates(response.data);
       } catch (error) {
         console.error('Error fetching candidates:', error);
       }
-    };  
+    };
     fetchCandidates();
   }, []);
 
-  const filteredCandidates = candidates.filter((candidate) =>
-    candidate.candidate_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter candidates that are not approved or rejected
+  const filteredCandidates = candidates
+    .filter((candidate) => candidate.action !== 'Approved' && candidate.action !== 'Rejected') // Filter both approved and rejected
+    .filter((candidate) => candidate.candidate_name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const handleSearchClick = () => {
     setShowSearch(true);
@@ -36,7 +37,6 @@ const COOApproval = () => {
 
   const handleApprovalAction = async (candidateName, positionApplied, action, candidateId) => {
     try {
-      // Save the action (Approve or Reject) in the database
       await axios.post('http://localhost:5000/api/coo-approval/action', {
         candidate_id: candidateId,
         candidate_name: candidateName,
@@ -44,22 +44,20 @@ const COOApproval = () => {
         action,
       });
 
-      // Show the respective popup message
       setPopupMessage(
         action === 'Approved'
           ? 'Action saved. Candidate has been Approved!'
           : 'Action saved. Candidate has been Rejected!'
       );
-      setShowPopup(true); // Show popup modal
+      setShowPopup(true);
 
-      // Update the table to reflect the action (showing either Approved or Rejected)
+      // Remove the approved/rejected candidate from the list
       setCandidates((prevCandidates) =>
         prevCandidates.map((candidate) =>
           candidate.candidate_name === candidateName ? { ...candidate, action } : candidate
         )
       );
 
-      // Redirect after 4 seconds
       setTimeout(() => {
         navigate('/Coo-db');
       }, 4000);
@@ -70,20 +68,88 @@ const COOApproval = () => {
     }
   };
 
+  const navigateToApprovedCandidates = () => {
+    const approvedCandidates = candidates.filter((candidate) => candidate.action === 'Approved');
+    navigate('/approved-candidates', { state: { approvedCandidates } });
+  };
+
+  const navigateToRejectedCandidates = () => {
+    const rejectedCandidates = candidates.filter((candidate) => candidate.action === 'Rejected');
+    navigate('/rejected-candidates', { state: { rejectedCandidates } });
+  };
+
+  const handleViewFeedback = (candidateId) => {
+    navigate(`/View-feedback/level-four/${candidateId}`);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.dropdown-container')) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <div>
       <Navbar />
-      <div className="coo-approval container mx-auto mb-40 font-sans" style={{ fontFamily: 'Inria Sans, sans-serif' }}>
-        <div className="mb-8">
+      <div
+        className="coo-approval container mx-auto mb-40 font-sans"
+        style={{ fontFamily: 'Inria Sans, sans-serif' }}
+      >
+        <div className="mb-8 flex justify-between items-center">
           <button
             onClick={() => navigate('/candidate-list')}
             className="flex items-center px-4 py-2 bg-white text-black-600 font-semibold hover:text-orange-500 hover:bg-gray-100 rounded shadow-md hover:shadow-lg transition duration-200 ease-in-out mb-4 mt-20"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 mr-0.5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-8 h-8 mr-0.5"
+            >
               <path d="M15 19l-7-7 7-7" />
             </svg>
             Access Hiring Process Overview
           </button>
+          <div className="relative dropdown-container">
+            <button
+              className="bg-white text-[#055484] font-semibold py-2 px-4 rounded inline-flex items-center shadow-lg"
+              onClick={() => setShowDropdown(!showDropdown)} // Toggle dropdown
+            >
+              <span className="mr-1">Approved/Rejected Candidates</span>
+              <svg
+                className="fill-current h-4 w-4 "
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 10"
+              >
+                <path d="M0 0l10 10 10-10H0z" />
+              </svg>
+            </button>
+            {showDropdown && (
+              <ul className="dropdown-menu absolute bg-white text-[#055484] pt-1 shadow-lg border rounded w-full">
+                <li>
+                  <button
+                    onClick={navigateToApprovedCandidates}
+                    className="bg-white hover:bg-gray-100 hover:text-orange-600 py-2 px-4 block whitespace-no-wrap w-full text-left"
+                  >
+                    Approved Candidates
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={navigateToRejectedCandidates}
+                    className="bg-white hover:bg-gray-100 hover:text-orange-600 py-2 px-4 block whitespace-no-wrap w-full text-left"
+                  >
+                    Rejected Candidates
+                  </button>
+                </li>
+              </ul>
+            )}
+          </div>
         </div>
 
         <div className="flex items-center justify-between mb-8">
@@ -117,7 +183,8 @@ const COOApproval = () => {
               <th className="border px-8 py-2">SL.No</th>
               <th className="border px-16 py-2">Candidate Name</th>
               <th className="border px-16 py-2">Position Applied</th>
-              <th className="border px-4 py-2">Action</th>
+              <th className="border px-16 py-2">HR Feedback</th>
+              <th className="border px-16 py-2">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -126,14 +193,22 @@ const COOApproval = () => {
                 <td className="border px-4 py-2">{index + 1}</td>
                 <td className="border px-4 py-2">{candidate.candidate_name}</td>
                 <td className="border px-4 py-2">{candidate.position_applied}</td>
+                <td className="border px-4 py-2">
+                  <button
+                    onClick={() => handleViewFeedback(candidate.candidate_id)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                  >
+                    View
+                  </button>
+                </td>
                 <td className="border px-4 py-2 flex space-x-2">
                   {candidate.action ? (
                     <span
                       className={
                         candidate.action === 'Rejected'
-                          ? 'text-red-500' // Red color for rejected
+                          ? 'text-red-500'
                           : candidate.action === 'Approved'
-                          ? 'text-green-500' // Green color for approved
+                          ? 'text-green-500'
                           : ''
                       }
                     >
@@ -165,12 +240,16 @@ const COOApproval = () => {
           </tbody>
         </table>
 
-        {/* Popup modal */}
         {showPopup && (
-          <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-10">
-            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-              <h3 className="text-lg font-semibold text-green-600">{popupMessage}</h3>
-              <p className="text-gray-500 mt-2">You will be redirected shortly.</p>
+          <div className="popup fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded shadow-lg text-center">
+              <p className="text-gray-800">{popupMessage}</p>
+              <button
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                onClick={() => setShowPopup(false)}
+              >
+                Close
+              </button>
             </div>
           </div>
         )}

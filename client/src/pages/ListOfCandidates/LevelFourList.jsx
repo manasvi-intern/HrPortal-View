@@ -28,8 +28,8 @@ const LevelFourList = () => {
         
         <div className="container mx-auto p-4">
             <Navbar />
-            <h1 className="text-2xl font-bold p-5 mb-4">Candidate List</h1>
-            <table className="table-auto w-full border-collapse border border-gray-300">
+            <h1 className="text-3xl font-semibold mb-10 mt-8 text-[#055484]">Candidate List</h1>
+            <table className="table-auto w-full mb-8 border-collapse border border-gray-300">
                 <thead>
                     <tr className="bg-gray-100">
                         <th className="border border-gray-300 px-4 py-2">Sl No.</th>
