@@ -86,7 +86,7 @@ const LevelFourFb = () => {
     try {
       await axios.post('http://localhost:5000/api/hr-eval', dataToSubmit);
       setModal({ show: true, message: 'Form submitted successfully!', type: 'success' });
-      setTimeout(() => navigate('/hr-db'), 4000); // Navigate after 4 seconds
+      setTimeout(() => navigate('/hr-db'), 4000);
     } catch (error) {
       setModal({ show: true, message: 'Error submitting the form!', type: 'error' });
     }

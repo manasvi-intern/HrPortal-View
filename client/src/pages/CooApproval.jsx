@@ -35,6 +35,7 @@ const COOApproval = () => {
     setShowSearch(true);
   };
 
+
   const handleApprovalAction = async (candidateName, positionApplied, action, candidateId) => {
     try {
       await axios.post('http://localhost:5000/api/coo-approval/action', {
@@ -43,24 +44,22 @@ const COOApproval = () => {
         position_applied: positionApplied,
         action,
       });
-
+  
       setPopupMessage(
         action === 'Approved'
           ? 'Action saved. Candidate has been Approved!'
           : 'Action saved. Candidate has been Rejected!'
       );
       setShowPopup(true);
-
-      // Remove the approved/rejected candidate from the list
+  
+      // Update the candidates list with the approved/rejected action
       setCandidates((prevCandidates) =>
         prevCandidates.map((candidate) =>
           candidate.candidate_name === candidateName ? { ...candidate, action } : candidate
         )
       );
-
-      setTimeout(() => {
-        navigate('/Coo-db');
-      }, 4000);
+  
+      // No navigation or timeout - stays on the same page
     } catch (error) {
       console.error('Error saving action:', error);
       setPopupMessage('Failed to save action. Please try again.');

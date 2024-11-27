@@ -9,6 +9,10 @@ const RejectedCandidates = () => {
   // Access the rejected candidates data passed from the COOApproval page
   const rejectedCandidates = location.state?.rejectedCandidates || [];
 
+  const handleViewFeedback = (candidateId) => {
+    navigate(`/View-feedback/level-four/${candidateId}`);
+  };
+
   return (
     <div>
       <Navbar />
@@ -29,14 +33,21 @@ const RejectedCandidates = () => {
                 <th className="border px-8 py-2">SL.No</th>
                 <th className="border px-16 py-2">Candidate Name</th>
                 <th className="border px-16 py-2">Position Applied</th>
+                <th className="border px-16 py-2">HR Feedback</th>
               </tr>
             </thead>
             <tbody>
               {rejectedCandidates.map((candidate, index) => (
                 <tr key={index}>
-                  <td className="border px-4 py-2">{index + 1}</td>
-                  <td className="border px-4 py-2">{candidate.candidate_name}</td>
-                  <td className="border px-4 py-2">{candidate.position_applied}</td>
+                  <td className="border px-4 py-3">{index + 1}</td>
+                  <td className="border px-4 py-3">{candidate.candidate_name}</td>
+                  <td className="border px-4 py-3">{candidate.position_applied}</td>
+                  <button
+                    onClick={() => handleViewFeedback(candidate.candidate_id)}
+                    className="bg-blue-500 text-white px-2 py-1 mt-2 items-center rounded hover:bg-blue-600"
+                  >
+                    View
+                  </button>
                 </tr>
               ))}
             </tbody>

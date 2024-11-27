@@ -27,10 +27,10 @@ const Dropdown = ({ label, name, options, value, onChange, placeholder }) => {
           <div className="absolute z-10 w-full mt-1 bg-white border text-start border-gray-300 rounded shadow-lg">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full p-2 border-b border-gray-300 outline-none"
+              className="w-full px-3 p-1 border-b border-gray-300 outline-none"
             />
             <ul className="max-h-48 overflow-y-auto">
               {filteredOptions.map((option) => (
@@ -40,7 +40,7 @@ const Dropdown = ({ label, name, options, value, onChange, placeholder }) => {
                     onChange({ target: { name, value: option.value } });
                     setIsOpen(false); // Close dropdown
                   }}
-                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                  className="p-1 px-3 hover:bg-gray-100 cursor-pointer"
                 >
                   {option.label}
                 </li>
