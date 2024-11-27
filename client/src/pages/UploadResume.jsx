@@ -14,7 +14,7 @@ const UploadResume = () => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Upload Resume</h1>
-      <p className="mb-4 text-gray-700">Upload resume for request ID: MR{id}</p>
+      <p className="mb-4 text-gray-700">Upload resume for request ID: {id}</p>
       <input
         type="file"
         className="block w-full text-sm text-gray-500

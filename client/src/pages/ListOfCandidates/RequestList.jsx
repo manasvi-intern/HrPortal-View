@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Layouts/Navbar';
 import axios from 'axios' ;
 
-const ViewRequestForm = () => {
+const RequestList = () => {
     const [requests, setRequests] = useState([]);
     const navigate = useNavigate();
 
@@ -24,6 +24,10 @@ const ViewRequestForm = () => {
         navigate(`/request-list/${requestId}`); // Redirect to feedback form using CANDIDATE_ID
     };
 
+    const handleUploadResume = (requestId) => {
+      navigate(`/upload-resume/${requestId}`); 
+  };
+
     return (
         
         <div className="container mx-auto p-4">
@@ -36,7 +40,8 @@ const ViewRequestForm = () => {
                         <th className="border border-gray-300 px-4 py-2">Raised by</th>
                         <th className="border border-gray-300 px-4 py-2">Designation</th>
                         <th className="border border-gray-300 px-4 py-2">Project Name</th>
-                        <th className="border border-gray-300 px-4 py-2">Action</th>
+                        <th className="border border-gray-300 px-4 py-2">View Request Forms</th>
+                        <th className="border border-gray-300 px-4 py-2">Upload Resume</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +64,14 @@ const ViewRequestForm = () => {
             View
           </button>
         </td>
+        <td className="border border-gray-300 px-4 py-2">
+          <button
+            onClick={() => handleUploadResume(request.request_id)}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Upload
+          </button>
+        </td>
       </tr>
     ))
   )}
@@ -69,4 +82,4 @@ const ViewRequestForm = () => {
     );
 };
 
-export default ViewRequestForm;
+export default RequestList;

@@ -54,7 +54,7 @@ const App = () => {
         <Route path="/candidate-list" element={<CandidateList />} />
         <Route path="/list-of-candidate" element={<LevelFourList />} />
         <Route path="/request-list" element={<RequestList />} />
-        <Route path="/upload/:id" element={<UploadResume />} />
+        <Route path="/upload-resume/:id" element={<UploadResume />} />
         <Route path="/request-list/:requestId" element={<ViewRequestForm />} />
         <Route path="/View-feedback/level-four/:candidateId" element={<LevelFourView />} />
         <Route path="/approved-candidates" element={<ApprovedCandidates />} />
